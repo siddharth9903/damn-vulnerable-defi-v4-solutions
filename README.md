@@ -1,3 +1,28 @@
+
+Test using, `forge test --mp test/<challenge-name>/<ChallengeName>.t.sol`
+
+Lazy?
+Okay, wait..!!,
+1. Unstoppable: `forge test --mp test/unstoppable/Unstoppable.t.sol`
+2. Naive receiver: `forge test --mp test/naive-receiver/NaiveReceiver.t.sol`
+3. Truster: `forge test --mp test/truster/Truster.t.sol`
+4. Side Entrance: `forge test --mp test/side-entrance/SideEntrance.t.sol`
+5. The Rewarder: `forge test --mp test/rewarder/TheRewarder.t.sol`
+6. Selfie: `forge test --mp test/selfie/Selfie.t.sol`
+7. Compromised: `forge test --mp test/compromised/Compromised.t.sol`
+8. Puppet: `forge test --mp test/puppet/Puppet.t.sol`
+9. Puppet V2: `forge test --mp test/puppet-v2/PuppetV2.t.sol`
+10. Free Rider: `forge test --mp test/free-rider/FreeRider.t.sol`
+11. Backdoor: `forge test --mp test/backdoor/Backdoor.t.sol`
+12. Climber: `forge test --mp test/climber/Climber.t.sol`
+13. Wallet Mining: `forge test --mp test/wallet-mining/WalletMining.t.sol`
+14. Puppet V3: `forge test --mp test/puppet-v3/PuppetV3.t.sol`
+15. ABI Smuggling: `forge test --mp test/abi-smuggling/ABISmuggling.t.sol`
+16. Shards: `forge test --mp test/shards/Shards.t.sol`
+17. Curvy Puppet: `forge test --mp test/curvy-puppet/CurvyPuppet.t.sol`
+18. Withdrawal: `forge test --mp test/withdrawal/Withdrawal.t.sol`
+
+
 # Damn Vulnerable DeFi
 
 Damn Vulnerable DeFi is _the_ smart contract security playground for developers, security researchers and educators.
