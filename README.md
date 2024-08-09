@@ -7,7 +7,7 @@ Okay, wait..!!,
 2. Naive receiver: `forge test --mp test/naive-receiver/NaiveReceiver.t.sol`
 3. Truster: `forge test --mp test/truster/Truster.t.sol`
 4. Side Entrance: `forge test --mp test/side-entrance/SideEntrance.t.sol`
-5. The Rewarder: `forge test --mp test/rewarder/TheRewarder.t.sol`
+5. The Rewarder: `forge test --mp test/the-rewarder/TheRewarder.t.sol`
 6. Selfie: `forge test --mp test/selfie/Selfie.t.sol`
 7. Compromised: `forge test --mp test/compromised/Compromised.t.sol`
 8. Puppet: `forge test --mp test/puppet/Puppet.t.sol`
