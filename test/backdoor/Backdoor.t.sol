@@ -4,9 +4,11 @@ pragma solidity =0.8.25;
 
 import {Test, console} from "forge-std/Test.sol";
 import {Safe} from "@safe-global/safe-smart-account/contracts/Safe.sol";
+import {SafeProxy} from "@safe-global/safe-smart-account/contracts/proxies/SafeProxy.sol";
 import {SafeProxyFactory} from "@safe-global/safe-smart-account/contracts/proxies/SafeProxyFactory.sol";
 import {DamnValuableToken} from "../../src/DamnValuableToken.sol";
 import {WalletRegistry} from "../../src/backdoor/WalletRegistry.sol";
+import {BackdoorExploit} from "./BackdoorExploit.sol";
 
 contract BackdoorChallenge is Test {
     address deployer = makeAddr("deployer");
@@ -70,7 +72,17 @@ contract BackdoorChallenge is Test {
      * CODE YOUR SOLUTION HERE
      */
     function test_backdoor() public checkSolvedByPlayer {
-        
+        BackdoorExploit backdoorExploit = new BackdoorExploit(
+            singletonCopy,
+            walletFactory,
+            token,
+            walletRegistry,
+            users,
+            recovery,
+            AMOUNT_TOKENS_DISTRIBUTED
+        );
+
+        backdoorExploit.attack();
     }
 
     /**
